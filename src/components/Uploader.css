@@ -1,0 +1,89 @@
+.div-container-for-upload {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+          background-color: #f5f7fa;
+        }
+
+        .div-show-upload {
+          background-color: #fff;
+          border: 2px dashed #c0c0c0;
+          padding: 30px;
+          border-radius: 10px;
+          text-align: center;
+          box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+          width: 350px;
+        }
+
+        .div-show-upload img {
+          width: 100px;
+          height: auto;
+          margin-bottom: 20px;
+        }
+
+        #show-uploaded-file {
+          margin: 15px 0;
+          font-size: 14px;
+          color: #333;
+        }
+
+        .div-show-upload input[type="file"] {
+          padding: 10px;
+          border: none;
+          background-color: #4a90e2;
+          color: white;
+          font-weight: 500;
+          cursor: pointer;
+          border-radius: 6px;
+          transition: background-color 0.3s ease;
+        }
+
+        .div-show-upload input[type="file"]:hover {
+          background-color: #357bd8;
+        }
+
+        .div-show-upload button {
+          margin-top: 15px;
+          padding: 10px 20px;
+          background-color: #28a745;
+          color: white;
+          font-weight: 500;
+          border: none;
+          border-radius: 6px;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+        }
+
+        .div-show-upload button:hover {
+          background-color: #218838;
+        }
+
+        .file-preview {
+  margin-top: 1rem;
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  padding: 1rem;
+  border-radius: 6px;
+}
+
+.file-preview ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.file-preview li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.file-preview button {
+  background: #e74c3c;
+  color: white;
+  border: none;
+  padding: 4px 8px;
+  cursor: pointer;
+  border-radius: 4px;
+}

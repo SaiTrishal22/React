@@ -1,48 +1,77 @@
-// src/routes/index.tsx
-import * as fs from 'node:fs'
-import { createFileRoute, useRouter } from '@tanstack/react-router'
-import { createServerFn } from '@tanstack/react-start'
-
-const filePath = 'count.txt'
-
-async function readCount() {
-  return parseInt(
-    await fs.promises.readFile(filePath, 'utf-8').catch(() => '0'),
-  )
-}
-
-const getCount = createServerFn({
-  method: 'GET',
-}).handler(() => {
-  return readCount()
-})
-
-const updateCount = createServerFn({ method: 'POST' })
-  .validator((d: number) => d)
-  .handler(async ({ data }) => {
-    const count = await readCount()
-    await fs.promises.writeFile(filePath, `${count + data}`)
-  })
+// File: routes/index.tsx
+import { createFileRoute } from '@tanstack/react-router';
+import { useState } from 'react';
+import Uploader from '../components/Uploader';
+import FileHandler from '../components/FileHandler';
+import "./index.css";
 
 export const Route = createFileRoute('/')({
-  component: Home,
-  loader: async () => await getCount(),
-})
+  component: RouteComponent,
+});
 
-function Home() {
-  const router = useRouter()
-  const state = Route.useLoaderData()
+function RouteComponent() {
+  const [uploadedFileData, setUploadedFileData] = useState<any>(null);
+  const [fName, setFName] = useState<string[]>([]);
+  const [triggeredUpload, setTriggeredUpload] = useState<boolean>(false);
+  const [isUploading, setIsUploading] = useState<boolean>(false);
+
+  function handleTriggerUpload(click: boolean) {
+    setTriggeredUpload(click);
+    setIsUploading(false);
+  }
+
+  function handleFileName(names: string[]) {
+    setFName(prev => [...prev, ...names]);
+  }
+
+  function handleUploadStart() {
+    setIsUploading(true);
+  }
 
   return (
-    <button
-      type="button"
-      onClick={() => {
-        updateCount({ data: 1 }).then(() => {
-          router.invalidate()
-        })
-      }}
-    >
-      Add 1 to {state}?
-    </button>
-  )
+    <div className="container">
+      <div className="half left">
+        <Uploader
+          onUploadSuccess={(data) => {
+            setUploadedFileData(data);
+            setIsUploading(false);
+          }}
+          onFileName={handleFileName}
+          onUploadTriggered={handleTriggerUpload}
+          onUploadStart={handleUploadStart}
+        />
+      </div>
+      <div className="half right">
+        {uploadedFileData ? (
+          <FileHandler
+            fileData={uploadedFileData}
+            filename={fName}
+            announcedTrigger={triggeredUpload}
+          />
+        ) : fName.length > 0 ? (
+          <div className="file-table-container">
+            <table>
+              <thead>
+                <tr><th>#</th><th>File name</th></tr>
+              </thead>
+              <tbody>
+                {fName.map((name, i) => (
+                  <tr key={i} className={isUploading ? "uploading-row" : ""}>
+                    <td>{i + 1}</td>
+                    <td>{name}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <div className="file-table-container">
+            <p>No file selected yet.</p>
+          </div>
+        )}
+      </div>
+    </div>
+  );
 }
+
+export default RouteComponent;

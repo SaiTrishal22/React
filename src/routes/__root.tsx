@@ -1,4 +1,4 @@
-// src/routes/__root.tsx
+
 /// <reference types="vite/client" />
 import type { ReactNode } from 'react'
 import {
@@ -7,6 +7,10 @@ import {
   HeadContent,
   Scripts,
 } from '@tanstack/react-router'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+
+const queryClient = new QueryClient()
+
 
 export const Route = createRootRoute({
   head: () => ({
@@ -19,7 +23,7 @@ export const Route = createRootRoute({
         content: 'width=device-width, initial-scale=1',
       },
       {
-        title: 'TanStack Start Starter',
+        title: 'File Manager',
       },
     ],
   }),
@@ -29,7 +33,9 @@ export const Route = createRootRoute({
 function RootComponent() {
   return (
     <RootDocument>
-      <Outlet />
+          <QueryClientProvider client={queryClient}>
+            <Outlet />
+          </QueryClientProvider>  
     </RootDocument>
   )
 }
