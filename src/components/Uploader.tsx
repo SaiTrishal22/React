@@ -3,7 +3,7 @@ import "./Uploader.css";
 import uploadImg from "../assets/Upload.jpeg";
 
 // Authorization key (Move this to .env in real apps)
-const VITE_AUTH_ACCESS_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjMsImlhdCI6MTc1Mzg0MzYzOSwiZXhwIjoxNzU2NDM1NjM5fQ.fu6K01gn5-fI4VtLzKF9tNLir5XkzEfndQOE3HHy4E4";
+const VITE_AUTH_ACCESS_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjMsImlhdCI6MTc1Mzg0MzYzOSwiZXhwIjoxNzU2NDM1NjM5fQ.fu6K01gn....................";
 
 // maximum file size to make it into chuncks 
 const MAKE_CHUNKS_AFTER = 5*1024*1024;
@@ -113,4 +113,5 @@ export default function Uploader() {
      
     </>
   )
+
 }
